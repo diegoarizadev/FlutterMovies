@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:movies/src/widgets/card_swiper.dart';
 
 class HomePage extends StatefulWidget {
   //HomePage({Key home}) : super(key: key);
@@ -35,23 +35,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   _swiperCards() {
-    return Container(
-      padding: EdgeInsets.only(top: 10.0),
-      width: double.infinity, //Utiliza todo el ancho posible
-      height: 300.0,
-      child: Swiper(
-        layout: SwiperLayout.STACK,
-        itemWidth: 300.0,
-        itemBuilder: (BuildContext context, int index) {
-          return new Image.network(
-            "https://dummyimage.com/600x400/000/fff",
-            fit: BoxFit.fill,
-          );
-        },
-        itemCount: 3,
-        pagination: new SwiperPagination(),
-        control: new SwiperControl(),
-      ),
+    return CardSwiperCustom(
+      movies: [1, 2, 3, 4, 5],
     );
   }
 }
