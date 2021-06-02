@@ -63,4 +63,12 @@ class Film {
     voteAverage = json['vote_average'] / 1;
     voteCount = json['vote_count'];
   }
+
+  getPosterImage() {
+    // ignore: unnecessary_null_comparison
+    if (posterPath == null) {
+      return 'https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png';
+    } else {}
+    return 'https://image.tmdb.org/t/p/w500/$posterPath';
+  }
 }

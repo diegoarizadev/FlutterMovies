@@ -27,7 +27,7 @@ class MoviesProvider {
     final movies = Movies.fromJsonList(decodeData[
         'results']); //El constructor va a barrer todos las peliculas que viene de la repuesta del servicio, para crear instancias o items segun el modelo
 
-    print(movies.items[2].title); //Imprime una pelicula en puntual
+    //print(movies.items[2].title); //Imprime una pelicula en puntual
     return movies.items;
   }
 }

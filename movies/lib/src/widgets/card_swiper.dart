@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:movies/src/models/movies_model.dart';
 
 class CardSwiperCustom extends StatelessWidget {
   //const CardSwiperCustom({Key key}) : super(key: key);
 
   //Lista de tarjetas o elementos a mostrar.
-  final List<dynamic> movies;
+  final List<Film> movies;
 
   //Constructor
   CardSwiperCustom({required this.movies});
@@ -23,12 +24,12 @@ class CardSwiperCustom extends StatelessWidget {
         layout: SwiperLayout.STACK,
         itemBuilder: (BuildContext context, int index) {
           return ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image.network(
-              "https://dummyimage.com/600x400/000/fff",
-              fit: BoxFit.cover,
-            ),
-          );
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                image: NetworkImage(movies[index].getPosterImage()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                fit: BoxFit.cover,
+              ));
         },
         itemCount: movies.length,
         //pagination: new SwiperPagination(),
