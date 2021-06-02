@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -7,27 +8,60 @@ class MoviesProvider {
   String _apiKey = '';
   String _url = 'api.themoviedb.org';
   String _lenguage = 'en-US';
-  String _page = '1';
+  int _pageInTheaters = 0;
+  int _pageGetPopulares = 0;
+
+  List<Film> _populars = new List<Film>.empty();
+
+  //Begin - Stream de datos.
+  final _popularsStreamController = StreamController<
+      List<
+          Film>>.broadcast(); //Se agrega el broadcast para que muchos lugares del codigo puedan escuchar el flujo de datos.
+
+  //Get para insertar información en el stream
+  Function(List<Film>) get popularsSink => _popularsStreamController.sink.add;
+
+  //Get para escuchar el stream
+  Stream<List<Film>> get popularsStream => _popularsStreamController.stream;
+
+  void disposeStreams() {
+    //Función para cerrar los Stream!
+    _popularsStreamController.close();
+  }
+  //End - Stream de datos.
 
   Future<List<Film>> getInTheaters() async {
-    //Generacion de la URL HTTPS
+    _pageInTheaters++;
 
+    //Generacion de la URL HTTPS
     final _uriS = Uri.https(_url, '3/movie/now_playing', {
       'api_key': _apiKey,
       'language': _lenguage,
-      'page': _page,
+      'page': _pageInTheaters.toString(),
     });
     return await _processResponse(_uriS);
   }
 
   Future<List<Film>> getPopulars() async {
+    _pageGetPopulares++; //Se aumenta la paginación.
+
     //Generacion de la URL HTTPS
     final _uriS = Uri.https(_url, '3/movie/popular', {
       'api_key': _apiKey,
       'language': _lenguage,
-      'page': _page,
+      'page': _pageGetPopulares.toString(),
     });
-    return await _processResponse(_uriS);
+
+    //Begin - Stream de datos
+    final response = await _processResponse(_uriS);
+
+    _populars.addAll(
+        response); //addAll es de tipo iterable, por lo tanto todas las peliculas que viajen en el response seran agregadas.
+
+    popularsSink(_populars); //Colocarlo al inicio de Stream de datos.
+    //End - Stream de datos
+
+    return response;
   }
 
   Future<List<Film>> _processResponse(Uri url) async {
