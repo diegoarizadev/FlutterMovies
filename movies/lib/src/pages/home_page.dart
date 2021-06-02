@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/src/models/movies_model.dart';
 import 'package:movies/src/providers/movies_provider.dart';
 import 'package:movies/src/widgets/card_swiper.dart';
+import 'package:movies/src/widgets/movie_horizontal.dart';
 
 class HomePage extends StatefulWidget {
   //HomePage({Key home}) : super(key: key);
@@ -64,17 +65,29 @@ class _HomePageState extends State<HomePage> {
     return Container(
       width: double.infinity,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Populares',
-            style: Theme.of(context).textTheme.subtitle1,
+          Container(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              'Peliculas Populares',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
           ),
           FutureBuilder(
             future: moviesProvider.getPopulars(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
-              print(snapshot.data);
+              if (snapshot.hasData) {
+                //Tiene data
+                return MovieHorizontal(
+                  movies: snapshot.data,
+                );
+              } else {}
 
-              return Container();
+              return Center(child: CircularProgressIndicator());
             },
           ),
         ],
