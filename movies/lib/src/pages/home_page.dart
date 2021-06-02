@@ -32,13 +32,14 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         child: Column(
-          children: [_swiperCards()],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [_swiperCards(), _footer(context)],
         ),
       ),
     );
   }
 
-  Widget _swiperCards() {
+  _swiperCards() {
     MoviesProvider moviesProvider = new MoviesProvider();
     return FutureBuilder(
       future: moviesProvider.getInTheaters(),
@@ -54,6 +55,30 @@ class _HomePageState extends State<HomePage> {
           );
         }
       },
+    );
+  }
+
+  _footer(BuildContext context) {
+    MoviesProvider moviesProvider = new MoviesProvider();
+    ;
+    return Container(
+      width: double.infinity,
+      child: Column(
+        children: [
+          Text(
+            'Populares',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          FutureBuilder(
+            future: moviesProvider.getPopulars(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              print(snapshot.data);
+
+              return Container();
+            },
+          ),
+        ],
+      ),
     );
   }
 }
