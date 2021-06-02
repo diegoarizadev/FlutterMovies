@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
 
   _footer(BuildContext context) {
     MoviesProvider moviesProvider = new MoviesProvider();
-    ;
+
     return Container(
       width: double.infinity,
       child: Column(
