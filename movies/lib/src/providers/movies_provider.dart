@@ -11,7 +11,7 @@ class MoviesProvider {
   int _pageInTheaters = 0;
   int _pageGetPopulares = 0;
 
-  List<Film> _populars = new List<Film>.empty();
+  List<Film> _populars = [];
 
   //Begin - Stream de datos.
   final _popularsStreamController = StreamController<

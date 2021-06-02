@@ -76,6 +76,8 @@ class HomePage extends StatelessWidget {
                 //Tiene data
                 return MovieHorizontal(
                   movies: snapshot.data,
+                  nextPage: moviesProvider
+                      .getPopulars, //Se envia la referencia de la función.
                 );
               } else {}
 
