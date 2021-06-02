@@ -4,18 +4,13 @@ import 'package:movies/src/providers/movies_provider.dart';
 import 'package:movies/src/widgets/card_swiper.dart';
 import 'package:movies/src/widgets/movie_horizontal.dart';
 
-class HomePage extends StatefulWidget {
-  //HomePage({Key home}) : super(key: key);
+class HomePage extends StatelessWidget {
+  final moviesProvider = new MoviesProvider();
 
-  final MoviesProvider moviesProvider = new MoviesProvider();
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    moviesProvider.getPopulars();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -41,7 +36,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   _swiperCards() {
-    MoviesProvider moviesProvider = new MoviesProvider();
     return FutureBuilder(
       future: moviesProvider.getInTheaters(),
       builder: (BuildContext context, AsyncSnapshot<List<Film>> snapshot) {
@@ -60,8 +54,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   _footer(BuildContext context) {
-    MoviesProvider moviesProvider = new MoviesProvider();
-
     return Container(
       width: double.infinity,
       child: Column(
@@ -77,8 +69,8 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 10.0,
           ),
-          FutureBuilder(
-            future: moviesProvider.getPopulars(),
+          StreamBuilder(
+            stream: moviesProvider.popularsStream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 //Tiene data
