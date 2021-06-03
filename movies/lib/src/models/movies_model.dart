@@ -1,5 +1,5 @@
 class Movies {
-  List<Film> items = new List<Film>.empty(growable: true);
+  List<Film> items = [];
 
   Movies();
 

@@ -7,7 +7,7 @@ import '../models/movies_model.dart';
 class MoviesProvider {
   String _apiKey = '';
   String _url = 'api.themoviedb.org';
-  String _lenguage = 'en-US';
+  String _lenguage = 'es-ES';
   int _pageInTheaters = 0;
   int _pageGetPopulares = 0;
   bool _isLoad = false;
