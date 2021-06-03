@@ -56,7 +56,7 @@ class MovieDetails extends StatelessWidget {
       child: Row(
         children: [
           Hero(
-              tag: film!.id, //ID
+              tag: film!.uniqueID, //ID
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(

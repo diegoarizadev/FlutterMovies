@@ -23,13 +23,26 @@ class CardSwiperCustom extends StatelessWidget {
         itemHeight: _screenSize.height * 0.5, //50%
         layout: SwiperLayout.STACK,
         itemBuilder: (BuildContext context, int index) {
-          return ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(movies[index].getPosterImage()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover,
-              ));
+          //construye la tarjeta
+
+          movies[index].uniqueID =
+              '${movies[index].id}-card'; //Se instancia la propiedad del modelo para generar un ID unico.
+
+          return Hero(
+            tag: movies[index].uniqueID,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: GestureDetector(
+                  //Implementación del GestureDector en el card de las peliculas mas populares
+                  onTap: () => Navigator.pushNamed(context, 'details',
+                      arguments: movies[index]),
+                  child: FadeInImage(
+                    image: NetworkImage(movies[index].getPosterImage()),
+                    placeholder: AssetImage('assets/img/no-image.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                )),
+          );
         },
         itemCount: movies.length,
         //pagination: new SwiperPagination(),

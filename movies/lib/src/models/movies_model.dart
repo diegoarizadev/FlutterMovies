@@ -15,6 +15,8 @@ class Movies {
 }
 
 class Film {
+  String uniqueID = ''; //Se crea esta propiedad para generar un Id unico
+
   bool adult = false;
   String backdropPath = '';
   List<int> genreIds = [];
