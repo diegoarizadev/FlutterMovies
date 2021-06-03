@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/src/models/movies_model.dart';
 import 'package:movies/src/providers/movies_provider.dart';
+import 'package:movies/src/search/search_delegate.dart';
 import 'package:movies/src/widgets/card_swiper.dart';
 import 'package:movies/src/widgets/movie_horizontal.dart';
 
@@ -19,8 +20,12 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             //Botón de busqueda.
-            onPressed:
-                () {}, //showSearch(context: context, delegate: delegate),
+            onPressed: () {
+              showSearch(
+                  context: context,
+                  delegate:
+                      MovieSearch()); //El valor query, es la información inicial que se mostrar en el cajon.
+            },
             icon: Icon(
               Icons.search,
               color: Colors.black,
