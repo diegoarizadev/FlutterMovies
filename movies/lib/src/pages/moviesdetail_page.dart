@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movies/src/models/actors_model.dart';
 import 'package:movies/src/models/movies_model.dart';
+import 'package:movies/src/providers/movies_provider.dart';
 
 class MovieDetails extends StatelessWidget {
   //MovieDetails({Key key}) : super(key: key);
@@ -18,9 +20,7 @@ class MovieDetails extends StatelessWidget {
             ),
             _posterTitle(film, context),
             _description(film),
-            _description(film),
-            _description(film),
-            _description(film),
+            _createCast(film),
           ]),
         ), //objetos normales o standar
       ],
@@ -88,14 +88,65 @@ class MovieDetails extends StatelessWidget {
       ),
     );
   }
-}
 
-_description(Film? film) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-    child: Text(
-      film!.overview,
-      textAlign: TextAlign.justify,
-    ),
-  );
+  _description(Film? film) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+      child: Text(
+        film!.overview,
+        textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
+  _createCast(Film? film) {
+    final movieProvider = new MoviesProvider();
+
+    return FutureBuilder(
+      future: movieProvider.getCast(film!.id.toString()),
+      builder: (BuildContext context, AsyncSnapshot<List<Actor>> snapshot) {
+        if (snapshot.hasData) {
+          return _createActorsPageView(snapshot.data);
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  _createActorsPageView(List<Actor>? actor) {
+    return SizedBox(
+      height: 200.0,
+      child: PageView.builder(
+        pageSnapping: false, //Para mantener el momentun del scroll
+        controller: PageController(viewportFraction: 0.3, initialPage: 1),
+        itemCount: actor!.length,
+        itemBuilder: (context, i) => _actorCard(actor[i]),
+      ),
+    );
+  }
+
+  _actorCard(Actor actor) {
+    return Container(
+        child: Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: FadeInImage(
+            image: NetworkImage(actor.getPhoto()),
+            placeholder: AssetImage('assets/img/no-image.jpg'),
+            fit: BoxFit.cover, //Todo el ancho posible
+            fadeInDuration: Duration(milliseconds: 20),
+            height: 150.0,
+          ),
+        ),
+        Text(
+          actor.name,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    ));
+  }
 }
