@@ -97,4 +97,14 @@ class MoviesProvider {
 
     return cast.actors;
   }
+
+  Future<List<Film>> getSearchMovie(String query) async {
+    //Generacion de la URL HTTPS
+    final _uriS = Uri.https(_url, '3/search/movie', {
+      'api_key': _apiKey,
+      'language': _lenguage,
+      'query': query,
+    });
+    return await _processResponse(_uriS);
+  }
 }
