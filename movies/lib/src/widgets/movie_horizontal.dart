@@ -45,13 +45,17 @@ class MovieHorizontal extends StatelessWidget {
       margin: EdgeInsets.only(right: 15.0), //Separacion entre las tarjetas
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: FadeInImage(
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover, //Todo el ancho posible
-                height: 160.0,
-                image: NetworkImage(film.getPosterImage())),
+          Hero(
+            tag: film
+                .id, //Son Id unicos los cuales deben tener los dos elementos que van a interactuar
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  fit: BoxFit.cover, //Todo el ancho posible
+                  height: 160.0,
+                  image: NetworkImage(film.getPosterImage())),
+            ),
           ),
           SizedBox(
             height: 5.0,
