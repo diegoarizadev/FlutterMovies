@@ -10,6 +10,7 @@ class MoviesProvider {
   String _lenguage = 'en-US';
   int _pageInTheaters = 0;
   int _pageGetPopulares = 0;
+  bool _isLoad = false;
 
   List<Film> _populars = [];
 
@@ -43,6 +44,9 @@ class MoviesProvider {
   }
 
   Future<List<Film>> getPopulars() async {
+    if (_isLoad) return [];
+    _isLoad = true;
+
     _pageGetPopulares++; //Se aumenta la paginación.
 
     //Generacion de la URL HTTPS
@@ -60,7 +64,7 @@ class MoviesProvider {
 
     popularsSink(_populars); //Colocarlo al inicio de Stream de datos.
     //End - Stream de datos
-
+    _isLoad = false;
     return response;
   }
 
