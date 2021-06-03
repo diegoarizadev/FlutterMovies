@@ -18,7 +18,9 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.orange,
         actions: [
           IconButton(
-            onPressed: () {},
+            //Botón de busqueda.
+            onPressed:
+                () {}, //showSearch(context: context, delegate: delegate),
             icon: Icon(
               Icons.search,
               color: Colors.black,
