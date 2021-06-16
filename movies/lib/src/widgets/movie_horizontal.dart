@@ -28,7 +28,7 @@ class MovieHorizontal extends StatelessWidget {
     });
 
     return Container(
-      height: _screensize.height * 0.25, //20%
+      height: _screensize.height * 0.26, //20%
       child: PageView.builder(
         pageSnapping: false, //Magneto
         controller: _pageController, itemCount: movies.length,
@@ -61,7 +61,7 @@ class MovieHorizontal extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 5.0,
+            height: 20.0,
           ),
           Text(
             film.title,

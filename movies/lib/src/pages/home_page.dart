@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
           return CardSwiperCustom(movies: snapshot.data!);
         } else {
           return Container(
-            height: 400.0,
+            height: 430.0,
             child: Center(
               child: CircularProgressIndicator(),
             ),
@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 10.0,
+            height: 5.0,
           ),
           StreamBuilder(
             stream: moviesProvider.popularsStream,
