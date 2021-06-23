@@ -34,9 +34,22 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [_swiperCards(), _footer(context)],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              _swiperCards(),
+              SizedBox(
+                height: 20,
+              ),
+              _footer(
+                context,
+              )
+            ],
+          ),
         ),
       ),
     );
