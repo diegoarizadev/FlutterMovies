@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/src/models/actors_model.dart';
 import 'package:movies/src/models/movies_model.dart';
@@ -37,9 +38,19 @@ class MovieDetails extends StatelessWidget {
         flexibleSpace: FlexibleSpaceBar(
           //el widget se debe adaptar en el espacio de AppBar
           centerTitle: true,
-          title: Text(
-            film.title.toString(),
-            style: TextStyle(color: Colors.white, fontSize: 16.0),
+          title: FadeIn(
+            delay: Duration(milliseconds: 300),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                film.title.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
+              ),
+            ),
           ),
           background: Hero(
             tag: film.uniqueIdBanner,
@@ -72,18 +83,27 @@ class MovieDetails extends StatelessWidget {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(film.title.toString(),
-                  style: Theme.of(context).textTheme.headline6,
-                  overflow: TextOverflow.ellipsis),
-              Text(film.originalTitle.toString(),
-                  style: Theme.of(context).textTheme.subtitle1,
-                  overflow: TextOverflow.ellipsis),
-              Row(
-                children: [
-                  Icon(Icons.star_border),
-                  Text(film.voteAverage.toString(),
-                      style: Theme.of(context).textTheme.subtitle1)
-                ],
+              FadeIn(
+                delay: Duration(milliseconds: 200),
+                child: Text(film.title.toString(),
+                    style: Theme.of(context).textTheme.headline6,
+                    overflow: TextOverflow.ellipsis),
+              ),
+              FadeIn(
+                delay: Duration(milliseconds: 400),
+                child: Text(film.originalTitle.toString(),
+                    style: Theme.of(context).textTheme.subtitle1,
+                    overflow: TextOverflow.ellipsis),
+              ),
+              FadeIn(
+                delay: Duration(milliseconds: 600),
+                child: Row(
+                  children: [
+                    Icon(Icons.star_border),
+                    Text(film.voteAverage.toString(),
+                        style: Theme.of(context).textTheme.subtitle1)
+                  ],
+                ),
               ) //TextOverflow.ellipsis coloca los 3 puntos.
             ],
           ))
