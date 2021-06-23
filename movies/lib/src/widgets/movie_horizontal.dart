@@ -41,16 +41,13 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _card(BuildContext context, Film film) {
-    film.uniqueID =
-        '${film.id}-poster'; //Se instancia la propiedad del modelo para generar un ID unico.
-
     final card = Container(
       margin: EdgeInsets.only(right: 15.0), //Separacion entre las tarjetas
       child: Column(
         children: [
           Hero(
             tag: film
-                .uniqueID, //Son Id unicos los cuales deben tener los dos elementos que van a interactuar
+                .uniqueId, //Son Id unicos los cuales deben tener los dos elementos que van a interactuar
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: FadeInImage(
@@ -64,7 +61,7 @@ class MovieHorizontal extends StatelessWidget {
             height: 20.0,
           ),
           Text(
-            film.title,
+            film.title.toString(),
             overflow: TextOverflow
                 .ellipsis, //Coloca 3 puntos, cuando el texto no cabe.
             style: Theme.of(context).textTheme.caption,

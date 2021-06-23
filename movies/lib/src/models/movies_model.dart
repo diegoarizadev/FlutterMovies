@@ -15,22 +15,20 @@ class Movies {
 }
 
 class Film {
-  String uniqueID = ''; //Se crea esta propiedad para generar un Id unico
-
-  bool adult = false;
-  String backdropPath = '';
-  List<int> genreIds = [];
-  int id = 0;
-  String originalLanguage = '';
-  String originalTitle = '';
-  String overview = '';
-  double popularity = 0.0;
-  String posterPath = '';
-  String releaseDate = '';
-  String title = '';
-  bool video = false;
-  double voteAverage = 0.0;
-  int voteCount = 0;
+  bool? adult = false;
+  String? backdropPath;
+  List<int>? genreIds;
+  int? id;
+  String? originalLanguage;
+  String? originalTitle;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  String? releaseDate;
+  String? title;
+  bool? video;
+  double? voteAverage;
+  int? voteCount;
 
   Film({
     required this.adult,
@@ -64,6 +62,14 @@ class Film {
     video = json['video'];
     voteAverage = json['vote_average'] / 1;
     voteCount = json['vote_count'];
+  }
+
+  get uniqueId {
+    return '$id-tarjeta';
+  }
+
+  get uniqueIdBanner {
+    return '$id-banner';
   }
 
   getPosterImage() {

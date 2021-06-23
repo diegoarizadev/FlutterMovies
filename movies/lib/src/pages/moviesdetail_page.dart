@@ -7,7 +7,7 @@ class MovieDetails extends StatelessWidget {
   //MovieDetails({Key key}) : super(key: key);
 
   Widget build(BuildContext context) {
-    final Film? film = ModalRoute.of(context)!.settings.arguments as Film?;
+    final Film film = ModalRoute.of(context)!.settings.arguments as Film;
 
     return Scaffold(
         body: CustomScrollView(
@@ -27,7 +27,7 @@ class MovieDetails extends StatelessWidget {
     ));
   }
 
-  _createAppBar(Film? film) {
+  _createAppBar(Film film) {
     return SliverAppBar(
         elevation: 2.0,
         expandedHeight: 200.0, //Ancho total de la expansión
@@ -38,25 +38,28 @@ class MovieDetails extends StatelessWidget {
           //el widget se debe adaptar en el espacio de AppBar
           centerTitle: true,
           title: Text(
-            film!.title,
+            film.title.toString(),
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
-          background: FadeInImage(
-            image: NetworkImage(film.getBackgroundImage()),
-            placeholder: AssetImage('assets/img/loading.gif'),
-            fit: BoxFit.cover, //Todo el ancho posible
-            fadeInDuration: Duration(milliseconds: 20),
+          background: Hero(
+            tag: film.uniqueIdBanner,
+            child: FadeInImage(
+              image: NetworkImage(film.getBackgroundImage()),
+              placeholder: AssetImage('assets/img/loading.gif'),
+              fit: BoxFit.cover, //Todo el ancho posible
+              fadeInDuration: Duration(milliseconds: 20),
+            ),
           ),
         ));
   }
 
-  _posterTitle(Film? film, BuildContext context) {
+  _posterTitle(Film film, BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: [
           Hero(
-              tag: film!.uniqueID, //ID
+              tag: film.uniqueId, //ID
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(
@@ -69,10 +72,10 @@ class MovieDetails extends StatelessWidget {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(film.title,
+              Text(film.title.toString(),
                   style: Theme.of(context).textTheme.headline6,
                   overflow: TextOverflow.ellipsis),
-              Text(film.originalTitle,
+              Text(film.originalTitle.toString(),
                   style: Theme.of(context).textTheme.subtitle1,
                   overflow: TextOverflow.ellipsis),
               Row(
@@ -89,11 +92,11 @@ class MovieDetails extends StatelessWidget {
     );
   }
 
-  _description(Film? film) {
+  _description(Film film) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: Text(
-        film!.overview,
+        film.overview.toString(),
         textAlign: TextAlign.justify,
       ),
     );

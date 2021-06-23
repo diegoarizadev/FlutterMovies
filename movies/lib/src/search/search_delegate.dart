@@ -75,11 +75,10 @@ class MovieSearch extends SearchDelegate {
                   width: 50.0,
                   fit: BoxFit.contain,
                 ),
-                title: Text(movie.title),
-                subtitle: Text(movie.originalTitle),
+                title: Text(movie.title.toString()),
+                subtitle: Text(movie.originalTitle.toString()),
                 onTap: () {
                   close(context, null); //Cerrar la busqueda
-                  movie.uniqueID = '';
                   //Navegar al detalle
                   Navigator.pushNamed(context, 'details', arguments: movie);
                 },
