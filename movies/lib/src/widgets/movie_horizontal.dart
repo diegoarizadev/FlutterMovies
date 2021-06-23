@@ -9,8 +9,10 @@ class MovieHorizontal extends StatelessWidget {
 
   MovieHorizontal({required this.movies, required this.nextPage});
 
-  final _pageController =
-      new PageController(initialPage: 1, viewportFraction: 0.3);
+  final _pageController = new PageController(
+    //initialPage: 1,
+    viewportFraction: 0.3,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +31,9 @@ class MovieHorizontal extends StatelessWidget {
 
     return Container(
       height: _screensize.height * 0.26, //20%
-      child: PageView.builder(
-        pageSnapping: false, //Magneto
+      child: ListView.builder(
+        scrollDirection:
+            Axis.horizontal, //El scroll de las card se vean horizontales
         controller: _pageController, itemCount: movies.length,
         itemBuilder: (context, i) {
           return _card(context, movies[i]);
@@ -42,7 +45,7 @@ class MovieHorizontal extends StatelessWidget {
 
   Widget _card(BuildContext context, Film film) {
     final card = Container(
-      margin: EdgeInsets.only(right: 15.0), //Separacion entre las tarjetas
+      margin: EdgeInsets.only(left: 15.0), //Separacion entre las tarjetas
       child: Column(
         children: [
           Hero(
@@ -60,11 +63,15 @@ class MovieHorizontal extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          Text(
-            film.title.toString(),
-            overflow: TextOverflow
-                .ellipsis, //Coloca 3 puntos, cuando el texto no cabe.
-            style: Theme.of(context).textTheme.caption,
+          Container(
+            width: 120,
+            child: Text(
+              film.title.toString(),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow
+                  .ellipsis, //Coloca 3 puntos, cuando el texto no cabe.
+              style: Theme.of(context).textTheme.caption,
+            ),
           )
         ],
       ),

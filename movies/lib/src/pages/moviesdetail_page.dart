@@ -122,9 +122,12 @@ class MovieDetails extends StatelessWidget {
   _createActorsPageView(List<Actor>? actor) {
     return SizedBox(
       height: 200.0,
-      child: PageView.builder(
-        pageSnapping: false, //Para mantener el momentun del scroll
-        controller: PageController(viewportFraction: 0.3, initialPage: 1),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        //pageSnapping: false, //Para mantener el momentun del scroll
+        controller: PageController(
+          viewportFraction: 0.3,
+        ),
         itemCount: actor!.length,
         itemBuilder: (context, i) => _actorCard(actor[i]),
       ),
@@ -133,23 +136,28 @@ class MovieDetails extends StatelessWidget {
 
   _actorCard(Actor actor) {
     return Container(
+        margin: EdgeInsets.only(left: 15),
         child: Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
-          child: FadeInImage(
-            image: NetworkImage(actor.getPhoto()),
-            placeholder: AssetImage('assets/img/no-image.jpg'),
-            fit: BoxFit.cover, //Todo el ancho posible
-            fadeInDuration: Duration(milliseconds: 20),
-            height: 150.0,
-          ),
-        ),
-        Text(
-          actor.name,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
-    ));
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                image: NetworkImage(actor.getPhoto()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                fit: BoxFit.cover, //Todo el ancho posible
+                fadeInDuration: Duration(milliseconds: 20),
+                height: 150.0,
+              ),
+            ),
+            Container(
+              width: 120,
+              child: Text(
+                actor.name,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ));
   }
 }
